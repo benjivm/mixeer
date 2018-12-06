@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('BASEPATH')) {
+if (! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
@@ -23,25 +23,27 @@ class Mixeer
      *
      * @param $path
      * @param string $manifestDirectory
-     * @return string
+     *
      * @throws Exception
+     *
+     * @return string
      */
-    function mix($path, $manifestDirectory = '')
+    public function mix($path, $manifestDirectory = '')
     {
         static $manifests = [];
 
-        if (!starts_with($path, '/')) {
+        if (! starts_with($path, '/')) {
             $path = "/{$path}";
         }
 
-        if ($manifestDirectory && !starts_with($manifestDirectory, '/')) {
+        if ($manifestDirectory && ! starts_with($manifestDirectory, '/')) {
             $manifestDirectory = "/{$manifestDirectory}";
         }
 
         $manifestPath = public_path($manifestDirectory . '/mix-manifest.json');
 
-        if (!isset($manifests[$manifestPath])) {
-            if (!file_exists($manifestPath)) {
+        if (! isset($manifests[$manifestPath])) {
+            if (! file_exists($manifestPath)) {
                 throw new Exception("The Mix manifest does not exist at specified location: {$manifestPath}");
             }
 
@@ -50,7 +52,7 @@ class Mixeer
 
         $manifest = $manifests[$manifestPath];
 
-        if (!isset($manifest[$path])) {
+        if (! isset($manifest[$path])) {
             throw new Exception(
                 "Unable to locate Mix file: {$path}. Please check your " .
                 'webpack.mix.js output paths and try again.'
