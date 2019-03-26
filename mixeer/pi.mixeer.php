@@ -4,7 +4,7 @@ if (! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-require_once PATH_THIRD . 'mixeer/helpers.php';
+use Benjivm\Mixeer\Helpers;
 
 class Mixeer
 {
@@ -15,36 +15,39 @@ class Mixeer
      */
     public function __construct()
     {
-        $this->return_data = $this->mix(ee()->TMPL->fetch_param('file'), ee()->TMPL->fetch_param('manifest_dir'));
+        $file = ee()->TMPL->fetch_param('file');
+        $manifestDir = ee()->TMPL->fetch_param('manifest_dir');
+        
+        $this->return_data = $this->mix($file, $manifestDir);
     }
 
     /**
      * Mix it up.
      *
      * @param $path
-     * @param string $manifestDirectory
+     * @param string $manifestDir
      *
      * @throws Exception
      *
      * @return string
      */
-    public function mix($path, $manifestDirectory = '')
+    public function mix($path, $manifestDir = '')
     {
         static $manifests = [];
 
-        if (! starts_with($path, '/')) {
+        if (! Helpers::startsWith($path, '/')) {
             $path = "/{$path}";
         }
 
-        if ($manifestDirectory && ! starts_with($manifestDirectory, '/')) {
-            $manifestDirectory = "/{$manifestDirectory}";
+        if ($manifestDir && ! Helpers::startsWith($manifestDir, '/')) {
+            $manifestDir = "/{$manifestDir}";
         }
 
-        $manifestPath = public_path($manifestDirectory . '/mix-manifest.json');
+        $manifestPath = Helpers::publicPath($manifestDir . '/mix-manifest.json');
 
         if (! isset($manifests[$manifestPath])) {
             if (! file_exists($manifestPath)) {
-                throw new Exception("The Mix manifest does not exist at specified location: {$manifestPath}");
+                throw new Exception("The Mix manifest does not exist: {$manifestPath}");
             }
 
             $manifests[$manifestPath] = json_decode(file_get_contents($manifestPath), true);
@@ -54,11 +57,10 @@ class Mixeer
 
         if (! isset($manifest[$path])) {
             throw new Exception(
-                "Unable to locate Mix file: {$path}. Please check your " .
-                'webpack.mix.js output paths and try again.'
+                "Unable to locate Mix file: {$path}."
             );
         }
 
-        return $manifestDirectory . $manifest[$path];
+        return $manifestDir . $manifest[$path];
     }
 }
