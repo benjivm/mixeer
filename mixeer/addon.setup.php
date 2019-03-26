@@ -17,6 +17,6 @@ return [
     'docs_url'    => 'https://github.com/benjivm/mixeer',
     'name'        => 'MixEEr',
     'description' => 'Processes mix manifest files in ExpressionEngine for asset management.',
-    'version'     => '1.0.1',
+    'version'     => '1.0.2',
     'namespace'   => 'Benjivm\Mixeer',
 ];
