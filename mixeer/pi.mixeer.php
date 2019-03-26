@@ -17,7 +17,7 @@ class Mixeer
     {
         $file = ee()->TMPL->fetch_param('file');
         $manifestDir = ee()->TMPL->fetch_param('manifest_dir');
-        
+
         $this->return_data = $this->mix($file, $manifestDir);
     }
 

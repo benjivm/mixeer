@@ -2,7 +2,7 @@
 
 namespace Benjivm\Mixeer;
 
-class Helpers
+class helpers
 {
     /**
      * Determine if a given string starts with a given character.
