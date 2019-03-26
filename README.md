@@ -1,33 +1,46 @@
 # MixEEr
-[Laravel Mix](https://github.com/JeffreyWay/laravel-mix) for [ExpressionEngine](https://expressionengine.com/). This addon brings the `mix()` method to ExpressionEngine's template system.
+ This addon brings [Laravel Mix](https://github.com/JeffreyWay/laravel-mix)'s `mix()` method to [ExpressionEngine](https://github.com/ExpressionEngine/ExpressionEngine)'s template system.
 
-### Notes and caveats
-- This addon assumes you've already got your `webpack.mix.js` file and build tools set up, it does not include the base Laravel Mix build tools, [read this](https://github.com/JeffreyWay/laravel-mix/blob/master/docs/installation.md) if you need help getting started with Laravel Mix.
-- Laravel Mix works best compiling assets either alongside or below (not above) the target directory. You should already be running [ExpressionEngine's control panel outside the public folder](https://docs.expressionengine.com/latest/installation/best_practices.html), so use Laravel Mix from there. Here's an example folder structure:
+### Preamble
+- This addon assumes you've already got your `webpack.mix.js` file and build tools set up, it does not include the base Laravel Mix build tools, [read this](https://github.com/JeffreyWay/laravel-mix/blob/master/docs/installation.md#stand-alone-project) if you need help getting started with Laravel Mix.
+- Laravel Mix works best compiling assets either alongside or below the target directory; you should already have [ExpressionEngine's System directory above the public folder](https://docs.expressionengine.com/latest/installation/best-practices.html#moving-the-system-directory-above-webroot), so use Laravel Mix as a sibling of the **System** directory.
 
-```
-    ├── system/
-    │   ├── ee/
-    │   └── user/
+Here's a typical folder structure for example:
+
+<pre>
+    ├── <b>system/</b>
+    │   ├── <b>ee/</b>
+    │   └── <b>user/</b>
     │   ├── index.html
     │   ├── index.php
-    ├── node_modules/
-    ├── public/
-    │   ├── assets/
-    │   │   ├── css/
-    │   │   └── js/
-    │   ├── images/
-    │   └── themes/
+    ├── <b>node_modules/</b>
+    ├── <b>public/</b>
+    │   ├── <b>assets/</b>
+    │   │   ├── <b>css/</b>
+    │   │   └── <b>js/</b>
+    │   ├── <b>images/</b>
+    │   └── <b>themes/</b>
     │   ├── admin.php
     │   ├── favicon.ico
     │   ├── index.php
     │   ├── mix-manifest.json
-    ├── resources/
-    │   ├── fonts/
-    │   ├── js/
-    │   └── sass/
-    ├── webpack.mix.js
-    ├── package.json
+    ├── <b>resources/</b>
+    │   ├── <b>fonts/</b>
+    │   ├── <b>js/</b>
+    │   └── <b>sass/</b>
+    ├── <em>webpack.mix.js</em>
+    ├── <em>package.json</em>
+</pre>
+
+- You may be unable to compile assets until you specify the `publicPath` in your Mix options, for example:
+
+```
+mix.options({
+    publicPath: 'public',
+});
+
+mix.sass('resources/sass/app.scss', 'public/assets/css')
+    .js('resources/js/app.js', 'public/assets/js');
 ```
 
 ### Installation
