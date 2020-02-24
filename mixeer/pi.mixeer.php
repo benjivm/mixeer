@@ -4,8 +4,6 @@ if (! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-use Benjivm\Mixeer\Helpers;
-
 class Mixeer
 {
     public $return_data = '';
@@ -35,15 +33,15 @@ class Mixeer
     {
         static $manifests = [];
 
-        if (! Helpers::startsWith($path, '/')) {
+        if (! $this->startsWith($path, '/')) {
             $path = "/{$path}";
         }
 
-        if ($manifestDir && ! Helpers::startsWith($manifestDir, '/')) {
+        if ($manifestDir && ! $this->startsWith($manifestDir, '/')) {
             $manifestDir = "/{$manifestDir}";
         }
 
-        $manifestPath = Helpers::publicPath($manifestDir . '/mix-manifest.json');
+        $manifestPath = $this->publicPath($manifestDir . '/mix-manifest.json');
 
         if (! isset($manifests[$manifestPath])) {
             if (! file_exists($manifestPath)) {
@@ -62,5 +60,36 @@ class Mixeer
         }
 
         return $manifestDir . $manifest[$path];
+    }
+
+    /**
+     * Determine if a given string starts with a given character.
+     *
+     * @param $haystack
+     * @param $needles
+     *
+     * @return bool
+     */
+    private static function startsWith($haystack, $needles)
+    {
+        foreach ((array) $needles as $needle) {
+            if ($needle != '' && substr($haystack, 0, strlen($needle)) === (string) $needle) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Generate the public path to the given file.
+     *
+     * @param string $path
+     *
+     * @return string
+     */
+    private static function publicPath($path = '')
+    {
+        return ee()->config->item('base_path') . ($path ? '/' . ltrim($path, '/') : $path);
     }
 }
