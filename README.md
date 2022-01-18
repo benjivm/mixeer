@@ -1,11 +1,11 @@
 # MixEEr
- This addon brings [Laravel Mix](https://github.com/JeffreyWay/laravel-mix)'s `mix()` method to [ExpressionEngine](https://github.com/ExpressionEngine/ExpressionEngine)'s template system.
+ This addon brings [Laravel Mix's](https://github.com/JeffreyWay/laravel-mix) `mix()` method to [ExpressionEngine's](https://github.com/ExpressionEngine/ExpressionEngine) template system.
 
-### Preamble
+## Preamble
 - This addon assumes you've already got your `webpack.mix.js` file and build tools set up, it does not include the base Laravel Mix build tools, [read this](https://github.com/JeffreyWay/laravel-mix/blob/master/docs/installation.md#stand-alone-project) if you need help getting started with Laravel Mix.
-- Laravel Mix works best compiling assets either alongside or below the target directory; you should already have [ExpressionEngine's System directory above the public folder](https://docs.expressionengine.com/latest/installation/best-practices.html#moving-the-system-directory-above-webroot), so use Laravel Mix as a sibling of the **System** directory.
+- Laravel Mix works best when the public path is either a sibling or below its own directory. Therefore, because it's [best practice](https://docs.expressionengine.com/latest/installation/best-practices.html#moving-the-system-directory-above-webroot) to move ExpressionEngine's `system/` directory above the `public/` directory, you should setup Laravel Mix as a sibling of the `system/` directory.
 
-Here's a typical folder structure for example:
+Here's an example directory structure:
 
 <pre>
     ├── <b>system/</b>
@@ -32,32 +32,31 @@ Here's a typical folder structure for example:
     ├── <em>package.json</em>
 </pre>
 
-- You may be unable to compile assets until you specify the `publicPath` in your Mix options, for example:
+- You may be unable to compile assets until you specify the `publicPath` in your Mix options:
 
-```
-mix.options({
-    publicPath: 'public',
-});
-
+```js
 mix.sass('resources/sass/app.scss', 'public/assets/css')
-    .js('resources/js/app.js', 'public/assets/js');
+    .js('resources/js/app.js', 'public/assets/js')
+    .options({
+        publicPath: 'public',
+    });
 ```
 
-### Installation
-- [Download](https://github.com/benjivm/mixeer/archive/master.zip) the MixEEr addon
-- Copy the `mixeer/` folder to `system/user/addons/`
-- Go to *Developer > Addons* and install the plugin.
+## Installation
+- [Download](https://github.com/benjivm/mixeer/archive/master.zip) the MixEEr addon.
+- Copy the `mixeer/` directory to the `system/user/addons/` directory.
+- In ExpressionEngine's control panel go to *Developer > Addons* and install the plugin.
 
-### Usage
-Add the `{exp:mixeer}` tag to your templates, for example:
+## Usage
+Once the plugin is installed you can use the `{exp:mixeer}` tag in your templates:
 
-```
+```html
 <link rel="stylesheet" href="{exp:mixeer file='assets/css/app.css'}">
 <script src="{exp:mixeer file='assets/js/app.js'}"></script>
 ```
 
-You can also pass the `manifest_dir` parameter if your `mix-manifest.json` file is not in the root of your *public* folder:
+If you are overriding the directory of Laravel Mix's generated `mix-manifest.json` file you may also pass the `manifest_dir` parameter:
 
-```
+```html
 <link rel="stylesheet" href="{exp:mixeer manifest_dir='assets/manifest' file='assets/css/app.css'}">
 ```

@@ -13,10 +13,10 @@ class Mixeer
      */
     public function __construct()
     {
-        $file = ee()->TMPL->fetch_param('file');
-        $manifestDir = ee()->TMPL->fetch_param('manifest_dir');
-
-        $this->return_data = $this->mix($file, $manifestDir);
+        $this->return_data = $this->mix(
+            ee()->TMPL->fetch_param('file'),
+            ee()->TMPL->fetch_param('manifest_dir')
+        );
     }
 
     /**
@@ -59,7 +59,7 @@ class Mixeer
             );
         }
 
-        return $manifestDir . $manifest[$path];
+        return (string) $manifestDir . $manifest[$path];
     }
 
     /**
@@ -73,7 +73,7 @@ class Mixeer
     private static function startsWith($haystack, $needles)
     {
         foreach ((array) $needles as $needle) {
-            if ($needle != '' && substr($haystack, 0, strlen($needle)) === (string) $needle) {
+            if ((string) $needle !== '' && strncmp($haystack, $needle, strlen($needle)) === 0) {
                 return true;
             }
         }
