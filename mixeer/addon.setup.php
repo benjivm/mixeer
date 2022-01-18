@@ -2,8 +2,6 @@
 
 /**
  * MixEEr.
- * 
- * Use Laravel Mix with ExpressionEngine.
  *
  * @category        Plugin
  *
