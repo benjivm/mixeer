@@ -18,5 +18,5 @@ return [
     'name'        => 'MixEEr',
     'description' => 'Use Laravel Mix with ExpressionEngine.',
     'version'     => '1.0.4',
-    'namespace'   => 'Benjivm\Mixeer',
+    'namespace'   => 'Benjivm\Mix',
 ];

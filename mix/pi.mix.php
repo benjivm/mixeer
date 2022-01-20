@@ -4,7 +4,7 @@ if (! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-class Mixeer
+class Mix
 {
     public $return_data = '';
 

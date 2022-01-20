@@ -48,15 +48,15 @@ mix.sass('resources/sass/app.scss', 'public/assets/css')
 - In ExpressionEngine's control panel go to *Developer > Addons* and install the plugin.
 
 ## Usage
-Once the plugin is installed you can use the `{exp:mixeer}` tag in your templates:
+Once the plugin is installed you can use the `{exp:mix}` tag in your templates:
 
 ```html
-<link rel="stylesheet" href="{exp:mixeer file='assets/css/app.css'}">
-<script src="{exp:mixeer file='assets/js/app.js'}"></script>
+<link rel="stylesheet" href="{exp:mix file='assets/css/app.css'}">
+<script src="{exp:mix file='assets/js/app.js'}"></script>
 ```
 
 If you are overriding the directory of Laravel Mix's generated `mix-manifest.json` file you may also pass the `manifest_dir` parameter:
 
 ```html
-<link rel="stylesheet" href="{exp:mixeer manifest_dir='assets/manifest' file='assets/css/app.css'}">
+<link rel="stylesheet" href="{exp:mix manifest_dir='assets/manifest' file='assets/css/app.css'}">
 ```
