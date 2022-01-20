@@ -44,7 +44,7 @@ mix.sass('resources/sass/app.scss', 'public/assets/css')
 
 ## Installation
 - [Download](https://github.com/benjivm/mixeer/archive/master.zip) the MixEEr addon.
-- Copy the `mixeer/` directory to the `system/user/addons/` directory.
+- Copy the `mix/` directory to the `system/user/addons/` directory.
 - In ExpressionEngine's control panel go to *Developer > Addons* and install the plugin.
 
 ## Usage
