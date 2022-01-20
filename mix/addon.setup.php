@@ -17,6 +17,6 @@ return [
     'docs_url'    => 'https://github.com/benjivm/mixeer',
     'name'        => 'MixEEr',
     'description' => 'Use Laravel Mix with ExpressionEngine.',
-    'version'     => '1.0.4',
+    'version'     => '2.0.0',
     'namespace'   => 'Benjivm\Mix',
 ];
