@@ -8,9 +8,6 @@ class Mix
 {
     public $return_data = '';
 
-    /**
-     * Mixeer constructor.
-     */
     public function __construct()
     {
         $this->return_data = $this->mix(
@@ -22,7 +19,6 @@ class Mix
     /**
      * Mix it up.
      *
-     * @param $path
      * @param string $manifestDir
      *
      * @throws Exception
@@ -41,7 +37,20 @@ class Mix
             $manifestDir = "/{$manifestDir}";
         }
 
-        $manifestPath = $this->publicPath($manifestDir . '/mix-manifest.json');
+        // Check for HMR mode first
+        $hotFilePath = $this->publicPath($manifestDir.'/hot');
+
+        if (file_exists($hotFilePath)) {
+            $hot = trim(file_get_contents($hotFilePath));
+
+            // Remove trailing slash if present
+            $hot = rtrim($hot, '/');
+
+            return $hot.$path;
+        }
+
+        // Fall back to manifest for production/watch builds
+        $manifestPath = $this->publicPath($manifestDir.'/mix-manifest.json');
 
         if (! isset($manifests[$manifestPath])) {
             if (! file_exists($manifestPath)) {
@@ -54,19 +63,14 @@ class Mix
         $manifest = $manifests[$manifestPath];
 
         if (! isset($manifest[$path])) {
-            throw new Exception(
-                "Unable to locate Mix file: {$path}."
-            );
+            throw new Exception("Unable to locate Mix file: {$path}.");
         }
 
-        return (string) $manifestDir . $manifest[$path];
+        return (string) $manifestDir.$manifest[$path];
     }
 
     /**
      * Determine if a given string starts with a given character.
-     *
-     * @param $haystack
-     * @param $needles
      *
      * @return bool
      */
@@ -90,6 +94,6 @@ class Mix
      */
     private static function publicPath($path = '')
     {
-        return ee()->config->item('base_path') . ($path ? '/' . ltrim($path, '/') : $path);
+        return ee()->config->item('base_path').($path ? '/'.ltrim($path, '/') : $path);
     }
 }

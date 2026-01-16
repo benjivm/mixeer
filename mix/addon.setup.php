@@ -3,20 +3,20 @@
 /**
  * MixEEr.
  *
- * @category        Plugin
+ * @category Plugin
  *
- * @author          Ben Miller
- * @copyright       Copyright (c) 2020, Ben Miller
+ * @author Ben Miller
+ * @copyright Copyright (c) 2020, Ben Miller
  *
- * @link            https://github.com/benjivm/mixeer
+ * @see https://github.com/benjivm/mixeer
  */
 
 return [
-    'author'      => 'Ben Miller',
-    'author_url'  => 'https://benjivm.dev/',
-    'docs_url'    => 'https://github.com/benjivm/mixeer',
-    'name'        => 'MixEEr',
+    'author' => 'Ben Miller',
+    'author_url' => 'https://github.com/benjivm',
+    'docs_url' => 'https://github.com/benjivm/mixeer',
+    'name' => 'MixEEr',
     'description' => 'Use Laravel Mix with ExpressionEngine.',
-    'version'     => '2.0.0',
-    'namespace'   => 'Benjivm\Mix',
+    'version' => '2.0.1',
+    'namespace' => 'Benjivm\Mix',
 ];
